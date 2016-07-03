@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>anth-leaflet-map</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <!-- Aesthetics! -->
+	<!-- the order these .css files are loaded is important -->
+    <link rel="stylesheet" type="text/css" href="js/vendor/leaflet/leaflet.css" />
+	<link rel="stylesheet" type="text/css" href="js/vendor/leaflet.easybutton/easy-button.css" />
+	<link rel="stylesheet" type="text/css" href="css/default.css" />
+	<link rel="stylesheet" type="text/css" href="js/vendor/leaflet.draw/leaflet.draw.css" />
+	<link rel="stylesheet" type="text/css" href="js/vendor/leaflet-dialog/Leaflet.Dialog.css" />
+	<link rel="stylesheet" type="text/css" href="css/leaflet.draw-buttons.css" />
+
+    <!-- Behaviour! -->
+    <script type="text/javascript" src="js/vendor/leaflet/leaflet-src.js"></script>
+    <script type="text/javascript" src="js/vendor/leaflet.draw/leaflet.draw-src.js"></script>
+	<script type="text/javascript" src="js/vendor/leaflet-dialog/Leaflet.Dialog.js"></script>
+	<script type="text/javascript" src="js/vendor/leaflet.easybutton/easy-button.js"></script>
+	<script type="text/javascript" src="js/leaflet.draw.norsk.js"></script>  <!-- load Norwegian translations -->
+
+</head>
+<body>
+	<div id="map"></div>
+	
+	<script type="text/javascript">
+		// Setup Leaflet: http://leafletjs.com/examples/quick-start.html
+		var map = new L.Map("map", { 
+			doubleClickZoom: false,
+			bounceAtZoomLimits: false,
+			minZoom: 7
+		}).setView([69.53,22.19], 8);
+		
+		var tile_url = "map/{z}/{x}/{y}.png";
+		L.tileLayer(tile_url, {
+			minZoom: 7,
+			maxZoom: 12,
+			attribution: "&copy; whoever provided your maps"
+		}).addTo(map);
+			
+		// Initialise the FeatureGroup to store editable layers
+		var drawnItems = new L.FeatureGroup();
+		map.addLayer(drawnItems);
+
+		// Leaflet.Draw toolbar
+		// only let user add polygon areas, lines and markers
+		map.addControl(new L.Control.Draw({
+			draw: { polyline : true, rectangle : false, circle : false, polygon: true,
+			marker: { repeatMode: true },
+			edit: { featureGroup: drawnItems, edit: false }
+		}));
+		
+		// function to save all layers the user has drawn into a GeoJSON file
+		// file will be downloaded by the browser
+		// filename will be '<interview id>.json' (if user entered an ID); otherwise will be named 'map-<date>.json'
+		var saveLayers = function() {
+			// make today's date the default .json filename in case no interview ID entered
+			var date = new Date();
+			var day = date.getDate();
+			var month = date.getMonth() + 1;
+			var year = date.getFullYear();
+			
+			// set filename to interview ID (use today's date by default in case ID not entered)
+			var interview_id = document.getElementById("interview").value;
+			var filename = "map-" + year + "-" + month + "-" + day + ".json";
+			
+			if (interview_id != 0) {
+				filename = interview_id + ".json";
+			}
+			
+			// get GeoJSON of all drawn items
+			var collection = drawnItems.toGeoJSON();
+			
+			// DEBUGGING
+			//console.log(filename);
+			//console.log(collection)
+			//console.log(collection.features.length);
+			
+			// download JSON file if user has drawn anything
+			if (collection.features.length > 0) {
+				// source for this bit: http://stackoverflow.com/a/18197341
+				var element = document.createElement('a');
+				element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent( JSON.stringify(collection) ));
+				element.setAttribute('download', filename);
+
+				element.style.display = 'none';
+				document.body.appendChild(element);
+
+				element.click();
+
+				document.body.removeChild(element);
+			}
+			
+			dialog.close();
+		}
+		
+		// set up dialog box for entering interview ID and saving
+		var contents = [
+			"<input id='interview' type='text' placeholder='ID på deltager' /><br/><br/>",
+			"<button class='button' onclick='saveLayers()'>Lagre</button>&nbsp;&nbsp;",
+			"<button class='button' onclick='dialog.close()'>Avbryt</button>",
+			].join('');
+		var dialog = L.control.dialog({
+			initOpen : false,
+			size: [275, 200],
+			anchor: [380, 70]
+		}).setContent(contents)
+		  .addTo(map);
+		
+		// save button
+		var saveButton = L.easyButton("<span class='star'>&starf;</span>", function(btn, map){
+			dialog.open();
+		}, 'Lagre');
+		saveButton.addTo( map );
+		saveButton.disable();
+		
+		// save layers the user draws
+		map.on('draw:created', function(event) {
+			var layer = event.layer;
+			drawnItems.addLayer(layer);
+			
+			saveButton.enable();  // there's now something to save
+		});
+		
+		// disable save button if there's nothing to save
+		drawnItems.on('layerremove', function(e) {
+			if (drawnItems.getLayers().length == 0) {
+				saveButton.disable();
+			}
+		});
+		
+		/*
+		 * The rest of the code below allows the user to place markers on top of polygon areas (which isn't allowed by default)
+		 * isDrawingMarker tracks whether or not the user is about to place a marker...
+		 * ... if they are, and they click on the drawnItems layer, pass that mouse click to the map object so the marker gets placed.
+		 */
+		var isDrawingMarker = false;  // track whether user is about to draw markers
+		
+		map.on('draw:drawstart', function(e) {
+			if (e.layerType == 'marker') {
+				isDrawingMarker = true;
+			}
+		});
+		
+		map.on('draw:drawstop', function(e) {
+			isDrawingMarker = false;
+		});
+		
+		// pass clicks on the drawn layer to the map, so users can place markers on polygons (for example)
+		drawnItems.on('click', function(e) {
+			if (isDrawingMarker) {
+				map.fireEvent('click', e);
+			}
+		});
+	</script>
+
+</body>
+</html>

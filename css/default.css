@@ -1,0 +1,67 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body, html {
+    overflow: hidden;
+}
+
+a {
+    color: dodgerblue;
+}
+
+body, div#map {
+	position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.star{
+  font-size: 3.5em;
+}
+
+input[type="text"] {
+	display: block;
+	margin: 0;
+	width: 100%;
+	font-family: sans-serif;
+	font-size: 24px;
+	appearance: none;
+	box-shadow: none;
+	border-radius: none;
+	padding: 10px;
+	border: solid 5px #c9c9c9;
+	transition: border 0.3s;
+}
+input[type="text"]:focus,
+input[type="text"].focus {
+	border: solid 5px #969696;
+}
+
+.button {
+    background-color: #71A1E8;
+    border: none;
+	border-radius: 4px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+/* draw bigger leaflet buttons
+ * this must come before leaflet.draw.css is loaded otherwise the touch handlers don't work properly (for some reason)
+ */
+.leaflet-touch .leaflet-bar a, .leaflet-touch .leaflet-bar button {
+    width: 60px;
+    height: 60px;
+    line-height: 30px;
+	padding-top: 15px;  /* make sure zoom and save button icons are centred */
+}

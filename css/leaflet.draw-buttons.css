@@ -1,0 +1,115 @@
+/* ================================================================== */
+/* Make buttons bigger
+/* ================================================================== */
+.leaflet-draw-toolbar a {
+	background-image: url('../js/vendor/leaflet.draw/images/spritesheet-2x.png');
+	background-size: 540px 60px;
+	background-repeat: no-repeat;
+}
+
+.leaflet-retina .leaflet-draw-toolbar a {
+	background-image: url('../js/vendor/leaflet.draw/images/spritesheet-2x.png');
+	background-size: 540px 60px;
+}
+
+.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out {
+    font-size: 30px;
+}
+
+/* ================================================================== */
+/* Organise Draw toolbar so button icons are in the right place
+/* ================================================================== */
+.leaflet-draw-toolbar .leaflet-draw-draw-polyline {
+	background-position: -2px -2px;
+}
+
+.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-polyline {
+	background-position: 0 -1px;
+}
+
+.leaflet-draw-toolbar .leaflet-draw-draw-polygon {
+	background-position: -31px -2px;
+}
+
+.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-polygon {
+	background-position: -59px -1px;
+}
+
+.leaflet-draw-toolbar .leaflet-draw-draw-rectangle {
+	background-position: -62px -2px;
+}
+
+.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-rectangle {
+	background-position: -120px -1px;
+}
+
+.leaflet-draw-toolbar .leaflet-draw-draw-circle {
+	background-position: -92px -2px;
+}
+
+.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-circle {
+	background-position: -180px -1px;
+}
+
+.leaflet-draw-toolbar .leaflet-draw-draw-marker {
+	background-position: -122px -2px;
+}
+
+.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-marker {
+	background-position: -240px -1px;
+}
+
+/* ================================================================== */
+/* Organise Edit toolbar so button icons are in the right place
+/* ================================================================== */
+.leaflet-draw-toolbar .leaflet-draw-edit-edit {
+	background-position: -152px -2px;
+}
+
+.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-edit {
+	background-position: -300px -1px;
+}
+
+.leaflet-draw-toolbar .leaflet-draw-edit-remove {
+	background-position: -182px -2px;
+}
+
+.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-remove {
+	background-position: -360px -1px;
+}
+
+.leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled {
+	background-position: -212px -2px;
+}
+
+.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled {
+	background-position: -420px -1px;
+}
+
+.leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled {
+	background-position: -242px -2px;
+}
+
+.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled {
+	background-position: -480px -2px;
+}
+
+/* ================================================================== */
+/* Tweak tooltips
+/* ================================================================== */
+/* move tooltips in line with larger buttons */
+.leaflet-touch .leaflet-draw-actions {
+    left: 70px;
+}
+
+/* embiggen tooltips */
+.leaflet-touch .leaflet-draw-actions a {
+    font-size: 18px;
+    line-height: 50px;
+    height: 50px;
+}
+
+/* display list of tooltips downwards rather than across */
+.leaflet-draw-actions li {
+    display: list-item;
+}

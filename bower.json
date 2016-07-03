@@ -1,0 +1,39 @@
+{
+  "name": "anth-leaflet-map",
+  "description": "A simple map app for participants in field research to annotate (offline) maps",
+  "main": [
+    "index.html",
+	"css/default.css",
+	"css/leaflet.draw-buttons.css",
+	"js/leaflet.draw.norsk.js"
+  ],
+  "keywords": [
+    "map",
+    "leaflet",
+    "gis"
+  ],
+  "authors": [
+    "Matthew Gwynfryn Thomas"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/matthewgthomas/anth-leaflet-map",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matthewgthomas/anth-leaflet-map"
+  },
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "*.md",
+    "bower.json"
+  ],
+  "dependencies": {
+    "leaflet-dialog": "^1.0.2",
+    "Leaflet.EasyButton": "^1.2.0",
+    "leaflet-draw": "leaflet.draw#^0.3.0"
+  }
+}
