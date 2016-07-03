@@ -8,7 +8,7 @@ We've been using the app on a Nexus 10 tablet during [our fieldwork](https://pas
 For the time being, this software is provided 'as is' and I'm not really in a position to offer support (mainly because I'm in the field). I may well add/remove features to suit our fieldwork and participants, but if you want to suggest new features or report bugs, please feel free.
 
 ## Installing and using the app
-If you just want to use the app without any faff, you can download a .zip containing the latest version that's more or less ready to go. Once you've unzipped, you'll find the following folder structure:
+If you just want to use the app without any faff, you can [download a .zip containing the latest version](https://github.com/matthewgthomas/anth-leaflet-map/releases/download/v0.1/anth-leaflet-map.zip) that's more or less ready to go. Once you've unzipped, you'll find the following folder structure:
 
 ```
 anth-leaflet-map
