@@ -44,7 +44,7 @@ Also, remember to change the attribution for the source of the tiles on line 43:
 Out of the box, users can draw lines and areas, and place markers on maps. 
 
 ### Saving annotations
-The save button (pic) will be enabled after the user draws something on the map. When you click it, a dialog box will appear asking for a filename (we wanted to name the files after interview IDs). Enter one and click the Save button to download the .json file containing annotations. If you don't enter a filename, the app will save annotations using today's date.
+The save button (&starf;) will be enabled after the user draws something on the map. When you click it, a dialog box will appear asking for a filename (we wanted to name the files after interview IDs). Enter one and click the Save button to download the .json file containing annotations. If you don't enter a filename, the app will save annotations using today's date.
 
 ## Language localisation
 At the moment, the app is localised for our fieldwork in Norway. If you want to tweak them, just edit `leaflet.draw.norsk.js` in the `js` sub-folder. Or if you want to use the default language of English, [comment out](http://www.htmlcodetutorial.com/_33n45n45n.html) line 25 in `index.html`.
